@@ -1,24 +1,74 @@
-# README
+Usersテーブル
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+| Columns                   | Types          | Option                     |
+| --------------------------|----------------| ---------------------------|
+| nickname                  |   string       | null: false                |
+| email                     |   string       | null: false, unique: true  |
+| password                  |   string       | null: false                |
+| password_confirmation     |   string       | null: false                |
+| first_name                |   string       | null: false                |
+| last_name                 |   string       | null: false                |
+| first_name_kana           |   string       | null: false                |
+| last_name_kana            |   string       | null: false                |
+| birth_year                |   integer      | null: false                |
+| birth_month               |   integer      | null: false                |
+| birth_day                 |   integer      | null: false                |
 
-Things you may want to cover:
+Association
+has_many :items
+has_one:cards
 
-* Ruby version
 
-* System dependencies
+itemsテーブル
 
-* Configuration
+| Columns        | Types            | Option                            |
+| ---------------|------------------| ----------------------------------|
+| image          |   activeStorage  | null: false                       |
+| name           |   string         | null: false                       |
+| content        |   text           | null: false                       |
+| category       |   activeHash     | null: false                       |
+| condition      |   activeHash     | null: false                       |
+| fee            |   activeHash     | null: false                       |
+| area           |   activeHash     | null: false                       |
+| until_send     |   activeHash     | null: false                       |
+| price          |   integer        | null: false                       |
+| user_id        |   references     | null: false ,foreign_key: true    |
 
-* Database creation
+Association
+belongs_to:user
+has_one:cards
 
-* Database initialization
 
-* How to run the test suite
+cardsテーブル
 
-* Services (job queues, cache servers, search engines, etc.)
+| Columns        | Types            | Option                          |
+| ---------------|------------------| --------------------------------|
+| number         |   integer        | null: false,unique: true        |
+| expire_month   |   integer        | null: false                     |
+| expire_day     |   integer        | null: false                     |
+| sequlity_code  |   integer        | null: false                     |
+| user_id        |   references     | null: false,foreign_key: true   |
+| item_id        |   references     | null: false,foreign_key: true   |
 
-* Deployment instructions
+Association
+belongs_to:user
+belongs_to:item
+has_one:addresses
 
-* ...
+
+addressesテーブル
+
+| Columns        | Types            | Option                            |
+| ---------------|------------------| ----------------------------------|
+| postal_code    |   integer        | null: false                       |
+| prefecture     |   string         | null: false                       |
+| city           |   string         | null: false                       |
+| area           |   string         | null: false                       |
+| building       |   string         |                                   |
+| phone_number   |   integer        | null: false                       |
+| card_id        |   references     | null: false, foreign_key: true    |
+
+Association
+belongs_to:cards
+
+
