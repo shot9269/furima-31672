@@ -28,24 +28,23 @@
 | until_send_id  |   integer        | null: false                       |
 | price          |   integer        | null: false                       |
 | user           |   references     | null: false ,foreign_key: true    |
-| card           |   references     | null: false ,foreign_key: true    |
 
 ###Association
 - belongs_to:user
 - has_one:order
-
+- has_one:address
 
 ##ordersテーブル
 
 | Columns        | Types            | Option                          |
 | ---------------|------------------| --------------------------------|
-| user_id        |   references     | null: false,foreign_key: true   |
-| item_id        |   references     | null: false,foreign_key: true   |
+| user           |   references     | null: false,foreign_key: true   |
+| item           |   references     | null: false,foreign_key: true   |
 
 ###Association
 - belongs_to:user
 - belongs_to:item
-- has_one:addresses
+- has_one:address
 
 
 ##addressesテーブル
@@ -58,8 +57,9 @@
 | area           |   string         | null: false                       |
 | building       |   string         |                                   |
 | phone_number   |   string         | null: false                       |
+| order          |   references     | null: false,foreign_key: true     |
 
 ###Association
 - belongs_to:item
-
+- belongs_to:order
 
