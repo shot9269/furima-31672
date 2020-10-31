@@ -25,19 +25,26 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include('Email is invalid')
       end
+      it 'passwordが空だったら'do
+        @user.password = ""
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password can't be blank")
+        
+      end
       it 'passwrordが６文字以下' do
         @user.password = 'sdf11'
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
       end
       it 'passwordに半角英数字以外がある' do
-        @user.password = 'sdf漢字'
+        @user.password = 'sdfaaaa'
+        @user.password_confirmation = 'sdfaaaa'
         @user.valid?
-        expect(@user.errors.full_messages).to include('Password is invalid')
+        expect(@user.errors.full_messages).to include("Password Password Include both letters and numbers")
       end
       it 'password_confirmationがpasswordと違う' do
         @user.password = 'shota0609'
-        @user.password_confirmation = 'shota1111'
+        @user.password_confirmation = 'shota123'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
@@ -74,7 +81,7 @@ RSpec.describe User, type: :model do
       it 'first_name_kanaが全角（カタカナ）で入力されていない' do
         @user.first_name_kana = '田中'
         @user.valid?
-        expect(@user.errors.full_messages).to include('First name kana is invalid')
+        expect(@user.errors.full_messages).to include("First name kana Full-width katakana characters")
       end
       it 'last_name_kanaが入力されていない' do
         @user.last_name_kana = ''
@@ -84,7 +91,7 @@ RSpec.describe User, type: :model do
       it 'last_name_kanaが全角（カタカナ）で入力されていない' do
         @user.last_name_kana = '雄太'
         @user.valid?
-        expect(@user.errors.full_messages).to include('Last name kana is invalid')
+        expect(@user.errors.full_messages).to include("Last name kana Full-width katakana characters")
       end
       it '生年月日が入力されていない' do
         @user.birthday = ''

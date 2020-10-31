@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user do
     nickname                { Faker::Name.name }
-    password                { 'Furima1111'}
+    password                { 'furima123'}
     password_confirmation   { password }
     birthday                { Faker::Date.birthday }
     first_name              { '山田' }
