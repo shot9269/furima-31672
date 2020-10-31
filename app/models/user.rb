@@ -23,7 +23,7 @@ class User < ApplicationRecord
       validates :last_name_kana
     end
   
-    validates :password, length: { minimum: 6 }, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i,message:"Password Include both letters and numbers"}, confirmation: true
+    validates :password, length: { minimum: 6 }, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}+\z/i,message:" Include both letters and numbers"}, confirmation: true
   
 
 end
