@@ -13,8 +13,6 @@ RSpec.describe User, type: :model do
     end
 
     context '新規登録がうまく行かない行く時' do
-      it 'nickname,email,password,first_name,last_name,first_name_kana,last_name_kana,birthdayが入力されていない' do
-      end
       it 'emailがデータベースに存在する' do
         @user.email = '111@com'
         @user.save
