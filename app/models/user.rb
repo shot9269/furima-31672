@@ -13,7 +13,7 @@ class User < ApplicationRecord
       validates :birthday
     end
 
-    with_options format: { with: /\A(?:\p{Hiragana}|\p{Katakana}|[ー－]|[一-龠々])+\z/,messages:" Full-width characters"}  do
+    with_options format: { with: /\A(?:\p{Hiragana}|\p{Katakana}|[ー－]|[一-龠々])+\z/,messages:"Full-width characters"}  do
       validates :first_name
       validates :last_name
     end
@@ -23,7 +23,7 @@ class User < ApplicationRecord
       validates :last_name_kana
     end
   
-    validates :password, length: { minimum: 6 }, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}+\z/i,message:" Include both letters and numbers"}, confirmation: true
+    validates :password, length: { minimum: 6 }, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i,message:"Include both letters and numbers"}, confirmation: true
   
 
 end
