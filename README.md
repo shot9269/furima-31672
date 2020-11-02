@@ -29,7 +29,7 @@
 | price          |   integer        | null: false                       |
 | user           |   references     | null: false ,foreign_key: true    |
 
-###Association
+###Association 
 - belongs_to:user
 - has_one:order
 - has_one:address
