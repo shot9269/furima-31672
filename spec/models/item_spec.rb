@@ -24,6 +24,7 @@ RSpec.describe Item, type: :model do
     end
     it '商品の説明がが記入されていない'do
       @item.content = ""
+      @item.valid?
       expect(@item.errors.full_messages).to include("Content can't be blank")
     end
     it 'カテゴリーがチェックされていない'do
