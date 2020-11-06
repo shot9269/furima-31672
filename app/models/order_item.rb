@@ -3,12 +3,12 @@ class OrderItem
   attr_accessor :postal_code,:city,:area,:building,:prefecture_id,:phone_number, :item_id, :user_id,:token
 
   with_options presence: true do
+    validates :token
     validates :postal_code, format:{with:/\A\d{3}[-]\d{4}\z/, message: "is invalid. Include hyphen(-)" }
-    validates :prefecture_id, numericality:{other_than: 1,message: "Prefecture can't be blank"}
-    validates :phone_number, format:{with: /\A\d{11}\z/, message:"Phone number Input only number"}
+    validates :prefecture_id, numericality:{other_than: 1,message: "can't be blank"}
+    validates :phone_number, format:{with: /\A\d{11}\z/, message:"Input only number"}
     validates :city
     validates :area
-    validates :token
   end
 
   def save
