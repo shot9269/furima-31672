@@ -64,7 +64,10 @@ RSpec.describe OrderItem, type: :model do
         @order_item.valid?
         expect(@order_item.errors.full_messages).to include('Phone number Input only number')
       end
-      it '' do
+      it '電話番号が12桁以上では購入できない' do
+        @order_item.phone_number = '123456789012'
+        @order_item.valid?
+        expect(@order_item.errors.full_messages).to include('Phone number Input only number')
       end
     end
   end

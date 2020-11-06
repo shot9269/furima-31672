@@ -1,8 +1,8 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :already_sold
   before_action :item_id
-  
+  before_action :already_sold
+
   def index
     @order_item = OrderItem.new
   end
@@ -25,17 +25,15 @@ class OrdersController < ApplicationController
   end
 
   def already_sold
-    item = Item.find(params[:item_id])
-    if Order.exists?(item_id: item.id) || current_user.id == item.user_id
+    if Order.exists?(item_id: @item.id) || current_user.id == @item.user_id
       redirect_to root_path
     end 
   end
 
   def pay_jpy
-    item = Item.find(params[:item_id])
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
-      amount: item.price,
+      amount: @item.price,
       card: order_params[:token],
       currency: 'jpy'
     )

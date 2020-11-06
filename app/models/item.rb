@@ -2,6 +2,7 @@ class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category, :condition, :fee, :area, :send
   belongs_to :user
+  has_many :order
   has_one_attached :image
 
   with_options presence: true do
