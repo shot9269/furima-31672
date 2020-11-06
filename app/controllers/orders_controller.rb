@@ -1,8 +1,9 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :already_sold
+  before_action :item_id
+  
   def index
-    @item = Item.find(params[:item_id])
     @order_item = OrderItem.new
   end
 
@@ -13,7 +14,6 @@ class OrdersController < ApplicationController
       @order_item.save
       redirect_to root_path
     else
-      @item = Item.find(params[:item_id])
       render :index
     end
   end
@@ -30,7 +30,7 @@ class OrdersController < ApplicationController
       redirect_to root_path
     end 
   end
-  
+
   def pay_jpy
     item = Item.find(params[:item_id])
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']
@@ -40,4 +40,9 @@ class OrdersController < ApplicationController
       currency: 'jpy'
     )
   end
+
+  def item_id
+    @item = Item.find(params[:item_id])
+  end
+
 end
