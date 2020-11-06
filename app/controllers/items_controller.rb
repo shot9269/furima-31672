@@ -1,10 +1,10 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new,:edit,:destory]
-  before_action :item_id, only: [:show,:edit,:update,:destroy]
-  before_action :authorized_user, only: [:edit,:destroy]
+  before_action :authenticate_user!, only: [:new, :edit, :destory]
+  before_action :item_id, only: [:show, :edit, :update, :destroy]
+  before_action :authorized_user, only: [:edit, :destroy]
 
   def index
-    @items = Item.all.order("created_at DESC")
+    @items = Item.all.order('created_at DESC')
   end
 
   def new
@@ -26,7 +26,6 @@ class ItemsController < ApplicationController
   def edit
   end
 
-
   def update
     if @item.update(item_params)
       redirect_to item_path(@item.id)
@@ -36,9 +35,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    if @item.destroy
-      redirect_to root_path
-    end
+    redirect_to root_path if @item.destroy
   end
 
   private
@@ -53,9 +50,6 @@ class ItemsController < ApplicationController
 
   def authorized_user
     @item = Item.find(params[:id])
-    if @item.user_id != current_user.id
-      redirect_to root_path
-    end
+    redirect_to root_path if @item.user_id != current_user.id
   end
-
 end
