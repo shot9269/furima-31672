@@ -26,9 +26,11 @@ class OrdersController < ApplicationController
 
   def already_sold
     item = Item.find(params[:item_id])
-    redirect_to root_path if Order.exists?(item_id: item.id)
+    if Order.exists?(item_id: item.id) || current_user.id == item.user_id
+      redirect_to root_path
+    end 
   end
-
+  
   def pay_jpy
     item = Item.find(params[:item_id])
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']
